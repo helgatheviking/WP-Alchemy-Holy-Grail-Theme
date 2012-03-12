@@ -1,11 +1,4 @@
 <?php
-
-/*
- * 
- */
-
-define('WPALCHEMY',get_stylesheet_directory_uri() . '/metaboxes');
-
 /*
  * Functions for creating the metaboxes
  */
@@ -23,7 +16,8 @@ $repeating_textareas = new WPAlchemy_MetaBox(array(
 	'id' => '_repeating_textareas_meta',
 	'title' => 'Sample Repeating Textareas',
 	'template' => dirname ( __FILE__ ). '/metaboxes/repeating-textarea.php',
-	'init_action' => 'kia_metabox_init'
+	'init_action' => 'kia_metabox_init',
+	'hide_editor'	=> true
 ));
 
 
@@ -31,21 +25,18 @@ function kia_metabox_init(){
 	// I prefer to enqueue the styles only on pages that are using the metaboxes
 	wp_enqueue_style('wpalchemy-metabox', get_stylesheet_directory_uri() . '/metaboxes/meta.css');
 
+	//make sure we enqueue some scripts just in case 
+	wp_enqueue_script('jquery');
+	wp_enqueue_script('jquery-ui-core');
+	wp_enqueue_script('jquery-ui-widget');
+	wp_enqueue_script('jquery-ui-mouse');
+	wp_enqueue_script('jquery-ui-sortable');
+	
 	// special script for dealing with repeating textareas
 	wp_register_script('kia-metabox',get_stylesheet_directory_uri() . '/metaboxes/kia-metabox.js',array('jquery','editor'), '1.0');
 	
 	// needs to run AFTER all the tinyMCE init scripts have printed since we're going to steal their settings
 	add_action('after_wp_tiny_mce','kia_metabox_scripts',999);
-
-	//some strings we're going to need in the script
-	$data = array( 
-				'change_image' => __('Change Image', 'kia-metabox'),
-				'upload_image' => __('Upload Image', 'kia-metabox'),
-				'use_image' => __('Use This Image', 'kia-metabox'),
-				'default_photo' => WPALCHEMY . '/images/default_photo.png',
-				'default_image' => WPALCHEMY . '/images/default_preview.png' );
-				
-	wp_localize_script( 'kia-metabox', 'KIAMetaboxL10n', $data );
 }
 
 function kia_metabox_scripts(){

@@ -19,6 +19,8 @@
  
 .warning { color: red; }
 
+.js .warning {display: none;}
+
 /*
  * Repeating Groups
  */
@@ -44,7 +46,7 @@
 
 .my_meta_control .customEditor { margin: 15px 0px; }
 
-.my_meta_control .customEditor textarea { border: 0; }
+.my_meta_control .customEditor textarea { width: 100%; margin: 0; -webkit-border-top-right-radius: 0; -webkit-border-top-left-radius: 0; border-top-left-radius: 0; border-top-right-radius: 0; }
 
 .my_meta_control .custom_upload_buttons a { text-decoration: none; }
 
