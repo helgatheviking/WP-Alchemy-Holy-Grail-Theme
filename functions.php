@@ -9,7 +9,7 @@ $simple_textarea = new WPAlchemy_MetaBox(array(
 	'id' => '_single_textarea_meta',
 	'title' => 'Sample WP_Editor',
 	'template' => dirname ( __FILE__ ). '/metaboxes/single-textarea.php',
-	'init_action' => 'kia_metabox_scripts',
+	'init_action' => 'kia_metabox_init',
 ));
 
 $repeating_textareas = new WPAlchemy_MetaBox(array(
@@ -25,7 +25,7 @@ function kia_metabox_init(){
 	// I prefer to enqueue the styles only on pages that are using the metaboxes
 	wp_enqueue_style('wpalchemy-metabox', get_stylesheet_directory_uri() . '/metaboxes/meta.css');
 
-	//make sure we enqueue some scripts just in case 
+	//make sure we enqueue some scripts just in case ( only needed for repeating metaboxes )
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('jquery-ui-core');
 	wp_enqueue_script('jquery-ui-widget');
