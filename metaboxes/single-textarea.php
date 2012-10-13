@@ -11,7 +11,7 @@
 			'tabindex' =>2
 		);
 
-		$val =  html_entity_decode($mb->get_the_value()); 
+		$val =  html_entity_decode( $mb->get_the_value(), ENT_QUOTES, 'UTF-8' ); 
 		$id = $mb->get_the_name();
 		
 		wp_editor($val,  $id , $settings );
