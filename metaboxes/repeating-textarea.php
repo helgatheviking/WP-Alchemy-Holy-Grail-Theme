@@ -11,12 +11,23 @@
  
 	<?php while($mb->have_fields_and_multi('repeating_textareas')): ?>
 	<?php $mb->the_group_open(); ?>
- 
-	<h3 class="handle"><?php _e('Textarea Content');?></h3>
-	
-	<a href="#" class="dodelete button"><?php _e('Remove Textarea');?></a>
-	  
-	<div class="inside">
+
+	<div class="group-wrap <?php echo $mb->get_the_value( 'toggle_state' ) ? ' closed' : ''; ?>" >
+
+		<?php $mb->the_field('toggle_state'); ?>
+		<?php // @ TODO: toggle should be user specific ?>
+		<input type="checkbox" name="<?php $mb->the_name(); ?>" value="1" <?php checked( 1, $mb->get_the_value() ); ?> class="toggle_state hidden" />
+
+		<div class="group-control dodelete" title="<?php _e( 'Click to remove Slide', 'wpalchemy-grail' );?>"></div>
+		<div class="group-control toggle" title="<?php _e( 'Click to toggle', 'wpalchemy-grail' );?>"></div>
+
+		<?php $mb->the_field('textarea'); ?>
+		<?php // need to html_entity_decode() the value b/c WP Alchemy's get_the_value() runs the data through htmlentities() ?>
+		<h3 class="handle"><?php echo $mb->get_the_value() ? substr( strip_tags( html_entity_decode( $mb->get_the_value() ) ), 0, 30 ) : ( 'Textarea Content' );?></h3>
+		
+		<div class="group-inside">
+		
+			<p class="warning update-warning"><?php _e( 'Sort order has been changed.  Remember to save the post to save these changes.' );?></p>
 	
 			<?php
 
