@@ -1,15 +1,15 @@
 <div class="my_meta_control">
  
-	<p class="warning"><?php _e('These textareas will NOT work without javascript enabled.');?></p>
+	<p class="warning"><?php _e( 'These textareas will NOT work without javascript enabled.' );?></p>
  
-	<p><?php _e('Repeating Textareas cannot use WP_Editor() and must rely on tinyMCE javascript');?></p>
+	<p><?php _e( 'Repeating Textareas cannot use WP_Editor() and must rely on tinyMCE javascript' );?></p>
  
+	<a href="#" class="dodelete-repeating_textareas button"><?php _e('Remove All', 'wpalchemy-grail');?></a>
  
-	<a style="float:right; margin:0 10px;" href="#" class="dodelete-repeating_textareas button"><?php _e('Remove All');?></a>
+	<p><?php _e( 'Add new textareas by using the "Add Textarea" button.  Rearrange the order of textareas by dragging and dropping.', 'wpalchemy-grail' );?></p>
  
-	<p><?php _e('Add new textareas by using the "Add Textarea" button.  Rearrange the order of textareas by dragging and dropping.');?></p>
- 
-	<?php while($mb->have_fields_and_multi('repeating_textareas')): ?>
+	<?php while( $mb->have_fields_and_multi( 'repeating_textareas' ) ): ?>
+
 	<?php $mb->the_group_open(); ?>
 
 	<div class="group-wrap <?php echo $mb->get_the_value( 'toggle_state' ) ? ' closed' : ''; ?>" >
@@ -69,12 +69,9 @@
 
 	<?php $mb->the_group_close(); ?>
 	<?php endwhile; ?>
- 
-	<p style="margin-bottom:15px; padding-top:5px;"><a href="#" class="docopy-repeating_textareas button"><?php _e('Add Textarea');?></a></p>	
-	
-	
 
-	
+	<p><a href="#" class="docopy-repeating_textareas button"><span class="icon add"></span><?php _e( 'Add Textarea', 'wpalchemy-grail' );?></a></p>	
+		
 	<p class="meta-save"><button type="submit" class="button-primary" name="save"><?php _e('Update');?></button></p>
 
 </div>

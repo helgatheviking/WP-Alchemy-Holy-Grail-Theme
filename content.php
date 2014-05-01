@@ -72,7 +72,7 @@
 				$repeating_textareas->the_meta();
 				while( $repeating_textareas->have_fields( 'repeating_textareas' ) ){
 					echo '<h3>' . sprintf( __( 'Text Area #%d', 'wpalchemy-grail' ), $repeating_textareas->get_the_index() + 1 ) . '</h3>';
-					echo apply_filters( 'meta_content', $repeating_textareas->get_the_value('textarea' ) );
+					echo apply_filters( 'meta_content', $repeating_textareas->get_the_value( 'textarea' ) );
 				} 
 			}
 

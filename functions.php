@@ -3,7 +3,7 @@
  * Functions for creating the metaboxes
  */
 
-if (!class_exists('WPAlchemy_MetaBox')) include_once WP_CONTENT_DIR . '/wpalchemy/MetaBox.php';
+if ( ! class_exists( 'WPAlchemy_MetaBox' ) ) include_once 'metaboxes/wpalchemy/MetaBox.php';
 
 $simple_textarea = new WPAlchemy_MetaBox(array(
 	'id' => '_single_textarea_meta',
@@ -23,17 +23,17 @@ $repeating_textareas = new WPAlchemy_MetaBox(array(
 
 function kia_metabox_init(){
 	// I prefer to enqueue the styles only on pages that are using the metaboxes
-	wp_enqueue_style('wpalchemy-metabox', get_stylesheet_directory_uri() . '/metaboxes/meta.css');
+	wp_enqueue_style( 'wpalchemy-metabox', get_stylesheet_directory_uri() . '/metaboxes/meta.css');
 
 	//make sure we enqueue some scripts just in case ( only needed for repeating metaboxes )
-	wp_enqueue_script('jquery');
-	wp_enqueue_script('jquery-ui-core');
-	wp_enqueue_script('jquery-ui-widget');
-	wp_enqueue_script('jquery-ui-mouse');
-	wp_enqueue_script('jquery-ui-sortable');
+	wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'jquery-ui-core' );
+	wp_enqueue_script( 'jquery-ui-widget' );
+	wp_enqueue_script( 'jquery-ui-mouse' );
+	wp_enqueue_script( 'jquery-ui-sortable' );
 	
 	// special script for dealing with repeating textareas
-	wp_register_script('kia-metabox',get_stylesheet_directory_uri() . '/metaboxes/kia-metabox.js',array('jquery','editor'), '1.0');
+	wp_enqueue_script( 'kia-metabox', get_stylesheet_directory_uri() . '/metaboxes/kia-metabox.js', array( 'jquery', 'word-count', 'editor', 'quicktags', 'wplink', 'wp-fullscreen', 'media-upload' ), '1.1', true );
 	
 	// needs to run AFTER all the tinyMCE init scripts have printed since we're going to steal their settings
 	add_action('after_wp_tiny_mce','kia_metabox_scripts',999);
