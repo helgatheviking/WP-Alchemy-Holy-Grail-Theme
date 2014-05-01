@@ -18,19 +18,43 @@
 	  
 	<div class="inside">
 	
-		<p class="warning update-warning"><?php _e('Sort order has been changed.  Remember to save the post to save these changes.');?></p>
- 
-		<div class="customEditor">
-			<?php $mb->the_field('textarea'); ?>
-			
-			<div class="wp-editor-tools">
-				<div class="custom_upload_buttons hide-if-no-js wp-media-buttons"><?php do_action( 'media_buttons' ); ?></div>
+			<?php
+
+			// 'html' is used for the "Text" editor tab.
+			if ( 'html' === wp_default_editor() ) {
+				add_filter( 'the_editor_content', 'wp_htmledit_pre' );
+				$switch_class = 'html-active';
+			} else {
+				add_filter( 'the_editor_content', 'wp_richedit_pre' );
+				$switch_class = 'tmce-active';
+			}
+			?>
+
+			<div class="customEditor wp-core-ui wp-editor-wrap <?php echo 'tmce-active'; //echo $switch_class;?>">
+				
+				<div class="wp-editor-tools hide-if-no-js">
+
+					<div class="wp-media-buttons custom_upload_buttons">
+						<?php do_action( 'media_buttons' ); ?>
+					</div>
+
+					<div class="wp-editor-tabs">
+						<a data-mode="html" class="wp-switch-editor switch-html"> <?php _ex( 'Text', 'Name for the Text editor tab (formerly HTML)' ); ?></a>
+						<a data-mode="tmce" class="wp-switch-editor switch-tmce"><?php _e('Visual'); ?></a>
+					</div>
+
+				</div><!-- .wp-editor-tools -->
+
+				<div class="wp-editor-container">
+					<textarea class="wp-editor-area" rows="10" cols="50" name="<?php $mb->the_name(); ?>" rows="3"><?php echo esc_html( apply_filters( 'the_editor_content', html_entity_decode( $mb->get_the_value() ) ) ); ?></textarea>
+				</div>
+				<p><span><?php _e('Enter in some text');?></span></p>
+
 			</div>
-			<textarea id="<?php $mb->the_name(); ?>" rows="10" cols="50" name="<?php $mb->the_name(); ?>" rows="3"><?php echo esc_html( wp_richedit_pre($mb->get_the_value()) ); ?></textarea>
-			<p><span><?php _e('Enter in some text');?></span></p>
-		</div>
-	
-	</div>
+
+		</div><!-- .group-inside -->
+
+	</div><!-- .group-wrap -->
 
 	<?php $mb->the_group_close(); ?>
 	<?php endwhile; ?>
