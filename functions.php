@@ -56,7 +56,11 @@ function kia_repeating_save_filter( $meta, $post_id ){
 
 }
 
+/* 
+ * Enqueue styles and scripts specific to metaboxs
+ */
 function kia_metabox_init(){
+	
 	// I prefer to enqueue the styles only on pages that are using the metaboxes
 	wp_enqueue_style( 'wpalchemy-metabox', get_stylesheet_directory_uri() . '/metaboxes/meta.css');
 
@@ -66,12 +70,12 @@ function kia_metabox_init(){
 	wp_enqueue_script( 'jquery-ui-widget' );
 	wp_enqueue_script( 'jquery-ui-mouse' );
 	wp_enqueue_script( 'jquery-ui-sortable' );
+
+	$suffix = defined( SCRIPT_DEBUG ) && SCRIPT_DEBUG ? '' : '.min';
 	
-	// special script for dealing with repeating textareas
-	wp_enqueue_script( 'kia-metabox', get_stylesheet_directory_uri() . '/metaboxes/kia-metabox.js', array( 'jquery', 'word-count', 'editor', 'quicktags', 'wplink', 'wp-fullscreen', 'media-upload' ), '1.1', true );
+	// special script for dealing with repeating textareas- needs to run AFTER all the tinyMCE init scripts, so make 'editor' a requirement
+	wp_enqueue_script( 'kia-metabox', get_stylesheet_directory_uri() . '/metaboxes/kia-metabox' . $suffix . '.js', array( 'jquery', 'word-count', 'editor', 'quicktags', 'wplink', 'wp-fullscreen', 'media-upload' ), '1.1', true );
 	
-	// needs to run AFTER all the tinyMCE init scripts have printed since we're going to steal their settings
-	add_action('after_wp_tiny_mce','kia_metabox_scripts',999);
 }
 
 function kia_metabox_scripts(){
