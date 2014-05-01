@@ -9,6 +9,7 @@ $simple_textarea = new WPAlchemy_MetaBox(array(
 	'id' => '_single_textarea_meta',
 	'title' => 'Sample WP_Editor',
 	'template' => dirname ( __FILE__ ). '/metaboxes/single-textarea.php',
+	'save_filter' => 'kia_single_save_filter',
 	'init_action' => 'kia_metabox_init',
 ));
 
@@ -16,10 +17,44 @@ $repeating_textareas = new WPAlchemy_MetaBox(array(
 	'id' => '_repeating_textareas_meta',
 	'title' => 'Sample Repeating Textareas',
 	'template' => dirname ( __FILE__ ). '/metaboxes/repeating-textarea.php',
-	'init_action' => 'kia_metabox_init',
-	'hide_editor'	=> true
+	'init_action' => 'kia_metabox_init', 
+	'save_filter' => 'kia_repeating_save_filter',
 ));
 
+/* 
+ * Sanitize the input similar to post_content
+ * @param array $meta - all data from metabox
+ * @param int $post_id
+ * @return array
+ */
+function kia_single_save_filter( $meta, $post_id ){
+
+	if( isset( $meta['test_editor'] ) ){
+		$meta['test_editor'] = sanitize_post_field( 'post_content', $meta['test_editor'], $post_id, 'db' );
+  	}
+
+	return $meta;
+
+}
+
+/* 
+ * Sanitize the input similar to post_content
+ * @param array $meta - all data from metabox
+ * @param int $post_id
+ * @return array
+ */
+function kia_repeating_save_filter( $meta, $post_id ){
+
+	array_walk( $meta, function ( &$item, $key ) { 
+		if( isset( $item['textarea'] ) ){
+			$item['textarea'] = sanitize_post_field( 'post_content', $item['textarea'], $post_id, 'db' );
+  		}
+
+	});
+
+	return $meta;
+
+}
 
 function kia_metabox_init(){
 	// I prefer to enqueue the styles only on pages that are using the metaboxes
