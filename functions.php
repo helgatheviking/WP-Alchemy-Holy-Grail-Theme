@@ -89,14 +89,9 @@ function kia_metabox_scripts(){
 add_filter( 'meta_content', 'wptexturize'        );
 add_filter( 'meta_content', 'convert_smilies'    );
 add_filter( 'meta_content', 'convert_chars'      );
-
-//use my override wpautop
-if(function_exists('override_wpautop')){
-add_filter( 'meta_content', 'override_wpautop'            );
-} else {
 add_filter( 'meta_content', 'wpautop'            );
-}
 add_filter( 'meta_content', 'shortcode_unautop'  );
 add_filter( 'meta_content', 'prepend_attachment' );
+add_filter( 'meta_content', 'do_shortcode');
 
 /* eof */
