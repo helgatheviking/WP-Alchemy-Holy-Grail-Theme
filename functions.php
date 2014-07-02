@@ -45,12 +45,16 @@ function kia_single_save_filter( $meta, $post_id ){
  */
 function kia_repeating_save_filter( $meta, $post_id ){
 
-	array_walk( $meta, function ( &$item, $key ) { 
-		if( isset( $item['textarea'] ) ){
-			$item['textarea'] = sanitize_post_field( 'post_content', $item['textarea'], $post_id, 'db' );
-  		}
+	if ( is_array( $meta ) && ! empty( $meta ) ){
 
-	});
+		array_walk( $meta, function ( &$item, $key ) { 
+			if( isset( $item['textarea'] ) ){
+				$item['textarea'] = sanitize_post_field( 'post_content', $item['textarea'], $post_id, 'db' );
+  			}
+
+		} );
+
+	}
 
 	return $meta;
 
