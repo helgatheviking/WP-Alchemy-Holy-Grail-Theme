@@ -75,7 +75,7 @@ function kia_metabox_init(){
 	wp_enqueue_script( 'jquery-ui-mouse' );
 	wp_enqueue_script( 'jquery-ui-sortable' );
 
-	$suffix = defined( SCRIPT_DEBUG ) && SCRIPT_DEBUG ? '' : '.min';
+	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 	
 	// special script for dealing with repeating textareas- needs to run AFTER all the tinyMCE init scripts, so make 'editor' a requirement
 	wp_enqueue_script( 'kia-metabox', get_stylesheet_directory_uri() . '/metaboxes/kia-metabox' . $suffix . '.js', array( 'jquery', 'word-count', 'editor', 'quicktags', 'wplink', 'wp-fullscreen', 'media-upload' ), '1.1', true );
