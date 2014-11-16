@@ -98,8 +98,6 @@ var KIA_metabox = {
 			if ( typeof tinyMCEPreInit == 'object' ){
 				tinyMCEPreInit.mceInit[id] = tmc_settings;
 				tinyMCEPreInit.qtInit[id] = qt_settings;
-				//switchEditors.addInstance( id, tmc_settings );
-				//QTags.addInstance( qt_settings );
 			}
 
 			// turn on the quicktags editor for each
@@ -136,22 +134,19 @@ var KIA_metabox = {
 
 		var qt_settings = $.extend( {}, KIA_metabox.qt_settings, { id : id } );
 
-
 		// add our copy to he collection in the tinyMCEPreInit object because switch editors
 		if ( typeof tinyMCEPreInit == 'object' ){
 				tinyMCEPreInit.mceInit[id] = tmc_settings;
 				tinyMCEPreInit.qtInit[id] = qt_settings;
 		}
 
-		//QTags.addInstance( qt_settings );
-
 		try { 
 			// turn on the quicktags editor for each
 			quicktags( qt_settings );
-
-			// old way to initialize - doesn't get our new settings
-			// tinyMCE.execCommand( 'mceAddEditor', false, id ); 
 			
+			// attempt to fix problem of quicktags toolbar with no buttons
+			QTags._buttonsInit();
+
 			// turn on tinyMCE
 			tinyMCE.init( tmc_settings );
 
