@@ -107,7 +107,10 @@ var KIA_metabox = {
 			tinymce.init( tmc_settings );
 
 			// fix media buttons
-			$(this).closest('.customEditor').find('a.insert-media').data( 'editor', id );
+			$(this).closest('.customEditor').find('.insert-media').data( 'editor', id );
+
+			// fix switch editors
+			$(this).closest('.customEditor').find('.wp-switch-editor').data( 'wp-editor', id );
 
 		});  //end each	
 
